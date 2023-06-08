@@ -40,7 +40,7 @@ def login_required(route):
 
 @app.route('/', methods=['GET'])
 def main_page():
-    return render_template('main.html')
+    return render_template('main.html')     #главная страница
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -59,6 +59,31 @@ def register():
             db.session.commit()
 
             return redirect('/login')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
+
+@app.route('/to-do-page', methods=['GET', 'POST'])
+def to_do_page():
+    return render_template('to-do-page.html')
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    return render_template('logout.html')
+
+@app.addtask('/logout', methods=['GET', 'POST'])
+def logout():
+    return render_template('to-do-page.html')
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
