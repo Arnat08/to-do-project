@@ -1,38 +1,10 @@
-from flask import Flask, request, render_template, session, redirect
-from flask_sqlalchemy import SQLAlchemy
-
+from flask import Flask, request, render_template, session, redirect,url_for
+from models import db,Users,Tasks
+from config import Configuration
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.secret_key = '!)@.Y~VqN0+F[;O'
-db = SQLAlchemy(app)
-
-
-
-
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), unique=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(200))
-    tasks = db.relationship('Tasks', lazy=True)
-
-    def init(self, username, email,  password):
-        self.username = username
-        self.email = email
-        self.password = password
-
-
-class Tasks(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    status = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    def __init__(self, title, status, user_id):
-        self.title = title
-        self.status = status
-        self.user_id = user_id
+app.config.from_object(Configuration)
+db.init_app(app)
 
 
 def login_required(route):
@@ -54,24 +26,17 @@ def main_page():
 def register():
     if request.method == 'GET':
         return render_template('auth/register.html')
-    else:
+    elif request.method == 'POST':
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirmPassword')
-
-
-# Добавил проверку @mail на уникальность
-        if password == confirm_password:
-             existing_user = Users.query.filter_by(email=email).first()
-        if existing_user:
-            return render_template('auth/register.html', error='Электронная почта уже существует') # Можно на английском: Email already exists
-
+        print(username,email,password)
         user = Users(username=username, email=email, password=password)
         db.session.add(user)
         db.session.commit()
+        return redirect(url_for('login'))
 
-        return redirect('/login')
 
 
 @app.route('/task', methods=['GET', 'POST'])
@@ -83,17 +48,20 @@ def logout():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
+        username = request.form.get('username')
         password = request.form.get('password')
 
-        user = Users.query.filter_by(email=email).first()
+        user = get_user_by_username(username)
         if user and user.password == password:
-            session['username'] = email
-            return redirect('/task') # Добавил адрес to do страницы
+            session['username'] = username
+            return redirect('/to-do-page') # Добавил адрес to do страницы
         else:
             return render_template('auth/login.html', error='Invalid username or password')
 
     return render_template('auth/login.html')
+
+def get_user_by_username(username):
+    return Users.query.filter_by(username=username).first()
 
 
 
@@ -107,7 +75,7 @@ def login():
 #     return render_template('logout.html')
 #
 
-if __name__== 'main':
+if __name__== '__main__':
+    app.run()
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
