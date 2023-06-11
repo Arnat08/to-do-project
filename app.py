@@ -64,12 +64,12 @@ def register():
 @app.route('/task', methods=['GET', 'POST'])
 def logout():
     return render_template('art.html')
-#
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     return render_template('login.html')
-#
-#
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('auth/login.html')
+
+
 # @app.route('/to-do-page', methods=['GET', 'POST'])
 # def to_do_page():
 #     return render_template('to-do-page.html')
