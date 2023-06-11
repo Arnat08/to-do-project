@@ -50,18 +50,14 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-
-        user = get_user_by_username(username)
+        user = Users.query.filter_by(username=username).first()
         if user and user.password == password:
             session['username'] = username
-            return redirect('/to-do-page') # Добавил адрес to do страницы
+            return redirect(url_for('task'))
         else:
-            return render_template('auth/login.html', error='Invalid username or password')
-
+            error = 'Invalid username or password'
+            return render_template('auth/login.html', error=error)
     return render_template('auth/login.html')
-
-def get_user_by_username(username):
-    return Users.query.filter_by(username=username).first()
 
 
 
