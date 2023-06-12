@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, session, redirect,url_for
-from models import db,Users,Tasks
+from models import db, Users, Tasks
 from config import Configuration
 
 app = Flask(__name__)
@@ -35,13 +35,13 @@ def register():
         user = Users(username=username, email=email, password=password)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('login'))
+        return redirect(url_for('task'))
 
 
 
 @app.route('/task', methods=['GET', 'POST'])
 def logout():
-    return render_template('art.html')
+    return render_template('auth/to-do-page.html')
 
 
 # Добавил проверку логина и пароля
@@ -75,5 +75,3 @@ if __name__== '__main__':
     app.run()
     with app.app_context():
         db.create_all()
-
-

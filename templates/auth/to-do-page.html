@@ -6,28 +6,40 @@
     <style>
         body {
             background-color: #4071F4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .container {
-            width: 480px;
-            height: 500px;
-            background-color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 10px;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+    width: 367px;
+    height: 25%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    margin-right: 40%;
+    margin-top: -27%;
+}
+
+.logout {
+    width: 100px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    margin-top: -33%;
+}
 
         .weather-text {
             font-size: 24px;
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
         .todo-text {
@@ -49,13 +61,19 @@
         }
 
         .todo-enter {
-            margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 20px;
+        }
+
+        .my-form {
+            display: flex;
         }
 
         .my-form input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
             width: 100%;
             padding: 10px;
             border-radius: 5px;
@@ -67,30 +85,26 @@
             background-color: #4071F4;
             color: white;
             border: none;
+            position: absolute;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 30px;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="container">
-            <div><span class="weather-text">Weather info</span></div>
-            <div class="to-do-list"><span class="todo-text">To-do List</span></div>
-            <div class="username">Hello, Arnat</div>
-            <div class="logout">
-                <form action="/logout" method="post">
-                    <input class="logout-button" type="submit" name="logout" value="logout">
-                </form>
-            </div>
-            <div class="todo-enter">
-                <form action="/addtask" method="post" class="my-form">
-                    <input type="text" name="task" placeholder="Enter your task" required>
-                    <input class="add-task" type="submit" name="addtask" value="Add Task">
-                </form>
-            </div>
-        </div>
+    <div class="container">
+        <div class="weather-text">Информация о погоде</div>
+
+
+    </div>
+
+    <div class="logout">
+        <form action="/logout" method="post">
+            <input class="logout-button" type="submit" name="logout" value="Выйти">
+        </form>
     </div>
 </body>
 </html>
