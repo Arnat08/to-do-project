@@ -54,9 +54,9 @@ def login():
         if user and user.password == password:
             session['username'] = username
             return redirect(url_for('task'))
-        else:
-            error = 'Invalid username or password'
-            return render_template('auth/login.html', error=error)
+    else:
+        error = 'Invalid username or password'
+        return render_template('auth/login.html', error=error)
     return render_template('auth/login.html')
 
 
