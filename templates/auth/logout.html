@@ -1,10 +1,141 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+    {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background-color: #4071F4;
+        }
+
+main.container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        margin-top: 2%
+    }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom:5%
+
+}
+
+.todo{
+    display: flex;
+    margin: 0 auto
+    height: 15 vh;
+    align-items: flex-end;
+}
+
+.todo-text {
+    color: white;
+    font-weight: bold;
+    font-size: 6em;
+        }
+
+.weather{
+    width:20%;
+    background: white;
+    border-radius: 10px;
+    margin-left:2%
+    height:15vh;
+}
+.weather-text {
+    margin-left: 20px;
+    color: #4071F4;
+    font-weight: bold;
+    font-size: 1.5em
+        }
+
+.hello-user {
+    height: 4vh;
+    width: 10%
+    font-size: 1.5em;
+    color: #FFFFFF;
+    }
+
+.logout {
+    width: 10%;
+    display: flex;
+    flex-direction:row;
+    justify-content:space-around
+}
+{
+    text-decoration:none;
+}
+
+.logout-button {
+    background-color: #4071F4;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    width: 100%
+    font-size: 1.2en;
+    font-weight:bold
+        }
+
+.todo-enter {
+    margin: 3% auto 3% auto;
+    width: 60%;
+        }
+
+.my-form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%
+}
+br{
+    align-self: center;
+}
+input{
+    margin: 0 auto;
+    padding: 20px;
+    font-size: 1.2em;
+    border-radius:20px;
+    width: 75%
+    border: none;
+}
+
+.add-task {
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 2.2em;
+    font-weight:bold;
+    width: 15%;
+    background-color: #4071F4;
+    color: white;
+    border: none;
+</style>
 </head>
 <body>
-
+     <div class="main-container">
+        <div class="container">
+            <div class="weather"><span class="weather-text">Weather info</span></div>
+            <div class="todo"><span class="todo-text">To-do List</span></div>
+            <div class="hello-user">Hello, Arnat</div>
+            <div class="logout">
+                <form action="/logout" method="post">
+                    <input class="logout-button" type="submit" name="logout" value="logout">
+                </form>
+            </div>
+            <div class="todo-enter">
+                <form action="/addtask" method="post" class="my-form">
+                    <input type="text" name="task" placeholder="Enter your task" required>
+                    <input class="add-task" type="submit" name="addtask" value="Add Task">
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
